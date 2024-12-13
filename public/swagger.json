@@ -1,0 +1,116 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"TransactionResponse": {
+				"properties": {
+					"txHash": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"txHash"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Transaction": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"to",
+					"value",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"CreateTransactionsRequest": {
+				"properties": {
+					"transactions": {
+						"items": {
+							"$ref": "#/components/schemas/Transaction"
+						},
+						"type": "array"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"systemWalletId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactions",
+					"chainId",
+					"systemWalletId"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "tx-manager-boilerplate",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/transactions/create": {
+			"post": {
+				"operationId": "CreateTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Transactions"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTransactionsRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
